@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller
 {
@@ -12,14 +14,23 @@ class IndexController extends Controller
             'usernameLogin' => 'required',
             'passwordLogin' => 'required'
         ]);
-        return redirect()->route('main');
+
+        $username = $req->usernameLogin;
+        $password = $req->passwordLogin;
+        if(auth::attempt(['name' => $username, 'password' => $password])) {
+            return redirect()->route('main');
+        }
+
+        return back()->withErrors([
+            "password" => "Incorrect credentials"
+        ])->onlyInput('passwordLogin');
     }
 
     function checkRegister(Request $req) {
         session(["activeForm" => "register"]);
         $this->validate($req, [
             'nameSingup' => 'required',
-            'usernameSingup' => 'required',
+            'bandnameSingup' => 'required',
             'mailSingup' => 'required',
             'passwordSingup' => 'required',
             'confirmPasswordSingup' => 'required',
