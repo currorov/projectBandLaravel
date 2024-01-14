@@ -43,8 +43,8 @@
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             
-            <input type="text" name="usernameSingup" id="usernameSingup" placeholder="Username" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
-            @error('usernameSingup')
+            <input type="text" name="bandnameSingup" id="bandnameSingup" placeholder="Band Name" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
+            @error('bandnameSingup')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             
