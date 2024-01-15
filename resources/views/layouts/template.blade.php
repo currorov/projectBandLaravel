@@ -8,13 +8,14 @@
     @yield('filesjs')
     <title>@yield('title')</title>
 </head> 
-<body class="bg-blue-200">    
+<body class="bg-white">    
     <div class="header bg-teal-500 text-white p-4 ">
         <div class="title flex items-center justify-center text-4xl">
-            <h1>{{ session("usernameLogin") ?? session("usernameSignup") ?? "PRUEBA" }}</h1>
+            <h1>{{ session("bandname") ?? "PRUEBA" }}</h1>
 
-            @if (!is_null(session("logoBand")) && file_exists(session("logoBand")))
-                <img src="{{ session("logoBand") }}" alt="Band Logo" class="band-logo max-w-13vw ml-10">
+            @if (!is_null(session("bandlogo")) && file_exists(session("bandlogo")))
+            <img src="{{ session("bandlogo") }}" alt="Band Logo" class="ml-10 w-1/6">
+
             @endif
         </div>
         <nav>

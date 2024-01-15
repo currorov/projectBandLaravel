@@ -16,4 +16,7 @@ Route::get('/main', [MainController::class, "viewMain"])->name('main');
 
 Route::get('/registration', [RegistrationController::class, "viewRegistration"])->name('registration');
 
+Route::post('/filter', [MainController::class, "filterInstruments"])->name('filter');
+
+
 
