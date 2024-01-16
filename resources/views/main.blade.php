@@ -7,13 +7,13 @@
 @section('content')
 <div class="main-content flex">
     <div class="sidebar bg-white border-r-2 border-teal-500 w-1/5 p-4 flex flex-col text-center text-base">
-        <h1 class="text-2xl mb-4 text-teal-500">Cerca</h1>
+        <h1 class="text-2xl mb-2 text-teal-500">Cerca</h1>
         <form id="filterForm" action="{{route('filter')}}" method="POST" class="text-center items-center">
             @csrf
-            <h2 class="mt-4 ">Family</h2>
+            <h2 class="mt-2 ">Family</h2>
             <div class="mt-3">
-            @foreach ($familys as $familys)
-                <input type="checkbox" name="familyfilter[]" value="{{ $familys }}"> {{ $familys }} <br>
+            @foreach ($familys as $family)
+                <input type="checkbox" name="familyfilter[]" value="{{ $family }}" @if(isset($familyfilter) && in_array($family, $familyfilter)) checked @endif> {{ $family }} <br>
             @endforeach
             </div>
             <h2 class="mt-4 ">Brand</h2>
@@ -23,12 +23,11 @@
             <h2 class="mt-4 ">Serial Number</h2>
             <input type="text" name="serialNumberFilter" id="serialNumberFilter" value="{{ old('serialNumberFilter', isset($serialfilter) ? $serialfilter : '') }}" class="w-full p-2 border-2 border-teal-500 rounded-5">
             <h2 class="mt-4 ">State</h2>
-            <label><input type="radio" name="stateFilter" value="lent"> lent</label> <br>
-            <label><input type="radio" name="stateFilter" value="available"> available</label> <br>
-            <label ><input type="radio" name="stateFilter" value="all"> all</label> <br>
+            <label><input type="radio" name="stateFilter" value="lent" @if(isset($statefilter)) {{ $statefilter == 'lent' ? 'checked' : '' }} @endif> lent</label> <br>
+            <label><input type="radio" name="stateFilter" value="available" @if(isset($statefilter)) {{ $statefilter == 'available' ? 'checked' : '' }} @endif> available</label> <br>
+            <label><input type="radio" name="stateFilter" value="all" @if(isset($statefilter)) {{ $statefilter == 'all' ? 'checked' : '' }} @endif> all</label> <br>
             <button type="submit" class="mt-4 w-full p-4 bg-teal-500 text-white border-none rounded-5 text-base hover:bg-teal-700 mx-auto mb-4">Filtrar</button>
-            <button type="submit" name="filterAction" value="reset" class="w-full p-4 bg-teal-500 text-white border-none rounded-5 text-base hover:bg-teal-700 mx-auto mb-4">Borrar filtres</button>
-            <input type="hidden" name="action" value="filter">
+            <button type="button" onclick="resetFilters()" class="w-full p-4 bg-teal-500 text-white border-none rounded-5 text-base hover:bg-teal-700 mx-auto mb-4">Borrar filtros</button>            <input type="hidden" name="action" value="filter">
         </form>
     </div>
     <div class="content w-4/5 p-4 flex flex-wrap justify-between bg-white">
@@ -41,7 +40,7 @@
                 <p>Serial number: {{ $instrument->serial_number }}</p>
                 <p>Acquisition date: {{ $instrument->acquisition_date}}</p>
                 <p>State: {{ $instrument->state}}</p>
-                <p class="text-center">{{ $instrument->comment }}</p>
+                <p class="text-center mt-2">{{ $instrument->comment }}</p>
                 @if (!is_null($instrument->image) && file_exists($instrument->image))
                     <img src="{{ $instrument->image }}" alt="Isntrument image" class="mx-auto w-1/3">
                 @else

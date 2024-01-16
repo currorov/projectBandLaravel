@@ -22,8 +22,8 @@
             <ul class="flex items-center text-2xl">
                 <li><a href="{{route('main')}}" class="text-white ml-4">Home</a></li>
                 <li><a href="{{route('registration')}}" class="text-white ml-4">Instrument registration</a></li>
-                <li><a href="#" class="text-white ml-4">Help</a></li>
-                <li id="last-item" class="ml-auto float-right"><a href="" class="text-white">Logout</a></li>
+                <li><a href="" class="text-white ml-4">Help</a></li>
+                <li id="last-item" class="ml-auto float-right"><a href="{{route('logout')}}" class="text-white">Logout</a></li>
             </ul>
         </nav>        
     </div>

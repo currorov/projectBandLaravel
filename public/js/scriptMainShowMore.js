@@ -1,10 +1,11 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const showMoreButton = document.getElementById('showMoreButton');
-    const hiddenInstruments = document.getElementById('hiddenInstruments');
+function resetFilters() {
+    var form = document.getElementById("filterForm");
+    var elements = form.elements;
 
-    // Maneja el clic en el botón "Ver más"
-    showMoreButton.addEventListener('click', function () {
-        hiddenInstruments.style.display = 'block';
-        showMoreButton.style.display = 'none'; // Oculta el botón después de hacer clic
-    });
-});
+    for (var i = 0; i < elements.length; i++) {
+        if (elements[i].type !== "hidden" && elements[i].type !== "button") {
+            elements[i].value = null;
+            elements[i].checked = false;
+        }
+    }
+}

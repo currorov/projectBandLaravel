@@ -65,6 +65,9 @@ class IndexController extends Controller
         }
 
         $user->save();
+
+        session(['activeBand' => $user]);
+        session(['bandname' => $user->bandname]);
         
         return redirect()->route('main');
     }

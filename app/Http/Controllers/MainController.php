@@ -9,6 +9,12 @@ use App\Models\Instrument;
 
 class MainController extends Controller
 {
+    function logout() {
+        session_start(); 
+        session_destroy(); 
+
+        return redirect()->route('index');
+    }
     function viewMain() {
         $activeBand = session('activeBand');
 
