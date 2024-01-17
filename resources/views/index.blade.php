@@ -38,22 +38,22 @@
         <h1 class="text-3xl md:text-4xl lg:text-5xl mb-7 text-teal-500">Sign Up</h1>
         <form action="{{route('register')}}" method="POST" enctype="multipart/form-data"> 
             @csrf
-            <input type="text" name="nameSingup" id="nameSingUp" placeholder="Name" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
+            <input type="text" name="nameSingup" id="nameSingUp" placeholder="Name" value="{{ old('nameSingup') }}" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
             @error('nameSingup')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             
-            <input type="text" name="bandnameSingup" id="bandnameSingup" placeholder="Band Name" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
+            <input type="text" name="bandnameSingup" id="bandnameSingup" placeholder="Band Name" value="{{ old('bandnameSingup') }}" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
             @error('bandnameSingup')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             
-            <input type="text" name="mailSingup" id="mailSingup" placeholder="Mail"  pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
+            <input type="text" name="mailSingup" id="mailSingup" placeholder="Mail"  value="{{ old('mailSingup') }}" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">
             @error('mailSingup')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
             
-            <input type="password" name="passwordSingup" id="passwordSingup" placeholder="Password"class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" >
+            <input type="password" name="passwordSingup" id="passwordSingup" placeholder="Password" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" >
             @error('passwordSingup')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
@@ -65,6 +65,9 @@
             
             <label>Select logo:</label>
             <input type="file" name="photoSingup" id="photoSingup" accept="image/*" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl"> <!-- No es obligado introducir una foto -->
+            @error('photoSingup')
+                <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
+            @enderror
             <p class="mt-4 mb-4 text-sm md:text-base">
                 Do you already have an account?  <a id="show-login" class="clickable-text text-blue cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Log in</a>
             </p>
@@ -80,7 +83,13 @@
             @error('mailRecoverPassword')
                 <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
             @enderror
-            
+            <input type="password" name="passwordRecover" id="passwordRecover" placeholder="New Password"class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" >
+            @error('passwordRecover')
+                <p class="text-sm md:text-base text-red-500" >{{$message}}</p>
+            @enderror
+            @if(session()->has('error'))
+                <p class="text-sm md:text-base text-red-500" >{{session('error')}}</p>
+            @endif
             <p class="mt-4 mb-4 text-sm md:text-base">
                 <a id="show-login-recover" class="clickable-text text-blue cursor-pointer text-teal-500 hover:text-teal-700 hover:underline">Go back  </a>
             </p>

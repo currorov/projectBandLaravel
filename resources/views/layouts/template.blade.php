@@ -14,7 +14,7 @@
             <h1>{{ session("bandname") ?? "PRUEBA" }}</h1>
 
             @if (!is_null(session("bandlogo")) && file_exists(session("bandlogo")))
-            <img src="{{ session("bandlogo") }}" alt="Band Logo" class="ml-10 w-1/6">
+            <img src="{{ session("bandlogo") }}" alt="Band Logo" class="ml-10 w-20">
 
             @endif
         </div>

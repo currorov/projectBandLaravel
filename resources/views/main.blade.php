@@ -23,28 +23,32 @@
             <h2 class="mt-4 ">Serial Number</h2>
             <input type="text" name="serialNumberFilter" id="serialNumberFilter" value="{{ old('serialNumberFilter', isset($serialfilter) ? $serialfilter : '') }}" class="w-full p-2 border-2 border-teal-500 rounded-5">
             <h2 class="mt-4 ">State</h2>
-            <label><input type="radio" name="stateFilter" value="lent" @if(isset($statefilter)) {{ $statefilter == 'lent' ? 'checked' : '' }} @endif> lent</label> <br>
-            <label><input type="radio" name="stateFilter" value="available" @if(isset($statefilter)) {{ $statefilter == 'available' ? 'checked' : '' }} @endif> available</label> <br>
-            <label><input type="radio" name="stateFilter" value="all" @if(isset($statefilter)) {{ $statefilter == 'all' ? 'checked' : '' }} @endif> all</label> <br>
+            <label><input type="radio" name="stateFilter" value="lent" @if(isset($statefilter)) {{ $statefilter == 'lent' ? 'checked' : '' }} @endif> Lent</label> <br>
+            <label><input type="radio" name="stateFilter" value="available" @if(isset($statefilter)) {{ $statefilter == 'available' ? 'checked' : '' }} @endif> Available</label> <br>
+            <label><input type="radio" name="stateFilter" value="all" {{ !isset($statefilter) || $statefilter == 'all' ? 'checked' : '' }}> All</label> <br>
             <button type="submit" class="mt-4 w-full p-4 bg-teal-500 text-white border-none rounded-5 text-base hover:bg-teal-700 mx-auto mb-4">Filtrar</button>
             <button type="button" onclick="resetFilters()" class="w-full p-4 bg-teal-500 text-white border-none rounded-5 text-base hover:bg-teal-700 mx-auto mb-4">Borrar filtros</button>            <input type="hidden" name="action" value="filter">
         </form>
     </div>
     <div class="content w-4/5 p-4 flex flex-wrap justify-between bg-white">
         @foreach ($arrayInstruments as $instrument)
-            <div class="instrument-card bg-white border-2 border-teal-500 p-4 mb-4 w-2/5 ml-10 mr-10" >
+            <div class="instrument-card bg-white border-2 border-teal-500 p-4 mb-4 min-w-64 max-w-xs mx-auto" >
                 <h2 class="text-2xl text-teal-500 text-center"> {{ $instrument->type }}</h2>
                 <p>Family: {{ $instrument->family }}</p>
                 <p>Brand: {{ $instrument->brand }}</p>
                 <p>Model: {{ $instrument->model }}</p>
                 <p>Serial number: {{ $instrument->serial_number }}</p>
                 <p>Acquisition date: {{ $instrument->acquisition_date}}</p>
-                <p>State: {{ $instrument->state}}</p>
-                <p class="text-center mt-2">{{ $instrument->comment }}</p>
-                @if (!is_null($instrument->image) && file_exists($instrument->image))
-                    <img src="{{ $instrument->image }}" alt="Isntrument image" class="mx-auto w-1/3">
+                @if($instrument->state == "lent")
+                    <p>State: <a class="text-red-500">{{ $instrument->state }}</a></p>
                 @else
-                    <img src="/uploads/instruments/trompet.png" alt="Isntrument image" class="mx-auto w-1/3 p-2">
+                    <p>State: <a class="text-green-500">{{ $instrument->state }}</a></p>
+                @endif
+                <p class="text-center mt-2 mb-4">{{ $instrument->comment }}</p>
+                @if (!is_null($instrument->image) && file_exists($instrument->image))
+                    <img src="{{ $instrument->image }}" alt="Isntrument image" class="mx-auto w-2/4">
+                @else
+                    <img src="/uploads/instruments/trompet.png" alt="Isntrument image" class="mx-auto w-2/4">
                 @endif
                 <form action="">
                     @csrf

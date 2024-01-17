@@ -28,8 +28,8 @@ class RegistrationController extends Controller
 
         $instrument = new Instrument();
         $instrument->family = ucwords(strtolower($req->family));
-        $instrument->type = $req->type;
-        $instrument->brand = $req->brand;
+        $instrument->type = ucwords(strtolower($req->type));
+        $instrument->brand = ucwords(strtolower($req->brand));
         $instrument->model = $req->model;
         if($req->serial_number != null){
             $instrument->serial_number = $req->serial_number;
