@@ -26,15 +26,19 @@ class MainController extends Controller
 
         $arrayInstruments = Instrument::where("band_id", $activeBand->id)->get();
 
+        $types = [];
         $familys = [];
 
         foreach ($arrayInstruments as $key => $instrument) {
+            if (!in_array($instrument->type, $types)) {
+                $types[] = $instrument->type;
+            }
             if (!in_array($instrument->family, $familys)) {
                 $familys[] = $instrument->family;
             }
         }
         
-        return view('main', compact('arrayInstruments', 'familys'));
+        return view('main', compact('arrayInstruments', 'types', 'familys'));
     }
 
     function filterInstruments(Request $req) {
@@ -42,36 +46,46 @@ class MainController extends Controller
 
         $arrayInstruments = Instrument::where("band_id", $activeBand->id)->get();
 
+        $types = [];
         $familys = [];
 
         foreach ($arrayInstruments as $key => $instrument) {
+            if (!in_array($instrument->type, $types)) {
+                $types[] = $instrument->type;
+            }
             if (!in_array($instrument->family, $familys)) {
                 $familys[] = $instrument->family;
             }
         }
 
         $familyfilter = $req->familyfilter;
-        if (!empty($familyfilter)) {
+        if (!empty($familyfilter) && $familyfilter != 'All') {
             $arrayInstruments = $arrayInstruments->filter(function ($instrument) use ($familyfilter) {
-                return in_array($instrument->family, $familyfilter);
+                return $instrument->family == $familyfilter;
+            });
+        }
+        $typefilter = $req->typefilter;
+        if (!empty($typefilter)) {
+            $arrayInstruments = $arrayInstruments->filter(function ($instrument) use ($typefilter) {
+                return in_array($instrument->type, $typefilter);
             });
         }
         $brandfilter = $req->brandFilter;
         if (!empty($brandfilter)) {
             $arrayInstruments = $arrayInstruments->filter(function ($instrument) use ($brandfilter) {
-                return $instrument->brand == $brandfilter;
+                return strtolower($instrument->brand) == strtolower($brandfilter);
             });
         }
         $modelfilter = $req->modelFilter;
         if (!empty($modelfilter)) {
             $arrayInstruments = $arrayInstruments->filter(function ($instrument) use ($modelfilter) {
-                return $instrument->model == $modelfilter;
+                return strtolower($instrument->model) == strtolower($modelfilter);
             });
         }
         $serialfilter = $req->serialNumberFilter;
         if (!empty($serialfilter)) {
             $arrayInstruments = $arrayInstruments->filter(function ($instrument) use ($serialfilter) {
-                return $instrument->serial_number == $serialfilter;
+                return strtolower($instrument->serial_number) == strtolower($serialfilter);
             });
         }
         $statefilter = $req->stateFilter;
@@ -81,7 +95,7 @@ class MainController extends Controller
             });
         }
         
-        return view('main', compact('arrayInstruments', 'familys', 'familyfilter', 'brandfilter', 'modelfilter', 'serialfilter', 'statefilter'));
+        return view('main', compact('arrayInstruments', 'types', 'typefilter','familyfilter', 'brandfilter', 'modelfilter', 'serialfilter', 'statefilter', 'familys'));
         
     }
 

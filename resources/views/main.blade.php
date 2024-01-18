@@ -10,12 +10,19 @@
         <h1 class="text-2xl mb-2 text-teal-500">Cerca</h1>
         <form id="filterForm" action="{{route('filter')}}" method="POST" class="text-center items-center">
             @csrf
-            <h2 class="mt-2 ">Family</h2>
+            <h2 class="mt-2 ">Type</h2>
             <div class="mt-3">
-            @foreach ($familys as $family)
-                <input type="checkbox" name="familyfilter[]" value="{{ $family }}" @if(isset($familyfilter) && in_array($family, $familyfilter)) checked @endif> {{ $family }} <br>
+            @foreach ($types as $type)
+                <input type="checkbox" name="typefilter[]" value="{{ $type }}" @if(isset($typefilter) && in_array($type, $typefilter)) checked @endif> {{ $type }} <br>
             @endforeach
             </div>
+            <h2 class="mt-4 ">Family</h2>
+            <select name="familyfilter" class="w-full p-2 border-2 border-teal-500 rounded-5">
+                <option value="All">All</option>
+                @foreach ($familys as $family)
+                    <option value="{{ $family }}" @if(old('familyfilter', isset($familyfilter) ? $familyfilter : '') == $family) selected @endif>{{ $family }}</option>
+                @endforeach
+            </select>
             <h2 class="mt-4 ">Brand</h2>
             <input type="text" name="brandFilter" id="brandFilter" value="{{ old('brandFilter', isset($brandfilter) ? $brandfilter : '') }}" class="w-full p-2 border-2 border-teal-500 rounded-5">
             <h2 class="mt-4 ">Model</h2>
