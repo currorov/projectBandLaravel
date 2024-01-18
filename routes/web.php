@@ -3,6 +3,7 @@
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,6 +16,7 @@ Route::post('/recoverPassword', [IndexController::class, "checkRecoverPass"])->n
 Route::get('/main', [MainController::class, "viewMain"])->name('main')->middleware('auth');
 
 Route::get('/registration', [RegistrationController::class, "viewRegistration"])->name('registration');
+Route::get('/generatepdf', [PdfController::class, "generarPDF"])->name('generatePDF');
 Route::get('/logout', [MainController::class, "logout"])->name('logout');
 
 Route::post('/filter', [MainController::class, "filterInstruments"])->name('filter');
