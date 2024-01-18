@@ -14,7 +14,10 @@ class MainController extends Controller
         Auth::logout();
 
         session_start(); 
-        session_destroy(); 
+        session_destroy();
+
+        session_start();
+        session(["activeForm" => "login"]);
 
         return redirect()->route('index');
     }

@@ -8,8 +8,8 @@
     <script src="{{ asset('js/scriptLogin.js') }}"></script>
     <title>Log In</title>
 </head>
-<body class="flex justify-center items-center min-h-screen bg-gradient-to-b from-f7f7f7 to-AFF5F7">
-    
+<body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-f7f7f7 to-AFF5F7">
+    <h1 class="text-6xl text-teal-500 mb-24">BANDAW</h1>
     <div class="mx-auto max-w-lg bg-white rounded-5 shadow-2xl p-5 text-center min-w-[650px] !important" id="login-form" @if(!session('activeForm')  || session('activeForm') == 'login') style="display:block;" @else style="display:none;" @endif>
         <h1 class="text-3xl md:text-4xl lg:text-5xl mb-7 text-teal-500">Log in</h1>
         <form action="{{route('login')}}" method="POST">

@@ -37,8 +37,12 @@
                 <p>Family: {{ $instrument->family }}</p>
                 <p>Brand: {{ $instrument->brand }}</p>
                 <p>Model: {{ $instrument->model }}</p>
+                @if(!is_null($instrument->serial_number))
                 <p>Serial number: {{ $instrument->serial_number }}</p>
+                @endif
+                @if(!is_null($instrument->acquisition_date))
                 <p>Acquisition date: {{ $instrument->acquisition_date}}</p>
+                @endif
                 @if($instrument->state == "lent")
                     <p>State: <a class="text-red-500">{{ $instrument->state }}</a></p>
                 @else

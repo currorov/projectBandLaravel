@@ -91,7 +91,7 @@ class IndexController extends Controller
         } else {
             return back()->withErrors([
                 "photoSingup" => "Email already exists"
-            ])->onlyInput('photoSingup');
+            ])->withInput();
         }
     }
 
