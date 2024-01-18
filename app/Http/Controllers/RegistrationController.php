@@ -14,6 +14,7 @@ class RegistrationController extends Controller
     }
 
     function insertInstrument(Request $req) {
+        //prueba
         $activeBand = session('activeBand');
         $this->validate($req, [
             'family' => 'required|regex:/^[a-zA-Z\s]+$/',
