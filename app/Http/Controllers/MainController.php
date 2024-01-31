@@ -22,6 +22,7 @@ class MainController extends Controller
         return redirect()->route('index');
     }
     function viewMain() {
+        session()->forget('activeTable');
         $activeBand = session('activeBand');
 
         $arrayInstruments = Instrument::where("band_id", $activeBand->id)->get();

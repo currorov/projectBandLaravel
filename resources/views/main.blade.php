@@ -48,7 +48,7 @@
                 <p>Serial number: {{ $instrument->serial_number }}</p>
                 @endif
                 @if(!is_null($instrument->acquisition_date))
-                <p>Acquisition date: {{ $instrument->acquisition_date}}</p>
+                <p>Acquisition date: {{ $instrument->acquisition_date->format('Y-m-d')}}</p>
                 @endif
                 @if($instrument->state == "lent")
                     <p>State: <a class="text-red-500">{{ $instrument->state }}</a></p>
@@ -61,7 +61,7 @@
                 @else
                     <img src="/uploads/instruments/trompet.png" alt="Isntrument image" class="mx-auto w-2/4">
                 @endif
-                <form action="">
+                <form action="{{ route('moreInfo', ['id' => $instrument->id]) }}" method="POST">
                     @csrf
                     <input type="submit" value="More Infomation" class="mt-4 w-full p-4 bg-teal-500 text-white border-none rounded-5 text-base hover:bg-teal-700 mx-auto mb-4">
                 </form>
