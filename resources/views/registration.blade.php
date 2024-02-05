@@ -30,7 +30,7 @@
         @error('serial_number')
             <span class="text-sm text-red-500">{{ $message }}</span>
         @enderror
-
+        
         <input type="date" name="acquisition_date" id="acquisition_date" class="w-full p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" value="{{ old('acquisition_date') }}">
         @error('acquisition_date')
             <span class="text-sm text-red-500">{{ $message }} <br></span>

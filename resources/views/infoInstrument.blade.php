@@ -1,5 +1,9 @@
 @extends('layouts.template')
 
+@section('filesjs')
+    <script src="{{ asset('js/scriptNewLoan&Revision.js') }}"></script>
+@endsection
+
 @section('content')
 <div class=" h-screen">
     <h1 class="text-center text-3xl md:text-4xl lg:text-5xl mb-7 text-teal-500 mt-4">{{ $instrument->family }} {{$instrument->brand}} {{$instrument->model}}</h1>
@@ -35,6 +39,7 @@
         <h1 class="text-center text-3xl md:text-4xl lg:text-5xl text-white">Loans</h1>
     
         @if(isset($loans))
+        <div id="loansSection">
             <table class="w-5/6 mt-5 bg-white mx-auto">
                 <thead class="bg-teal-500 text-white">
                     <tr>
@@ -60,12 +65,49 @@
                     @endforeach
                 </tbody>
             </table>
-        @endif
-        <div class="flex justify-center mt-4 pb-5">
-            <a href="#" class="p-4 md:text-4xl bg-white text-teal-500 border-none text-base hover:bg-gray-300">
-                <button type="button" class="btn">New Loan</button>
-            </a>
+            <div class="flex justify-center mt-4 pb-5">
+                <a href="#" class="p-4 md:text-4xl bg-white text-teal-500 border-none text-base hover:bg-gray-300" id="newLoanButton">
+                    <button type="button" class="btn">New Loan</button>
+                </a>
+            </div>
         </div>
+        <div id="newLoanForm" class="hidden mt-5">
+            <form id="filterForm" action="{{ route('filter') }}" method="POST" class="flex flex-col items-center">
+                <div class="flex items-center">
+                    <label for="start_date" class="mr-2">Start Date:</label>
+                    <input type="date" name="start_date" id="start_date" class="w-60 p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" value="{{ old('start_date') }}">
+                </div>
+                @error('start_date')
+                    <span class="text-sm text-red-500">{{ $message }} <br></span>
+                @enderror
+        
+                <div class="flex items-center">
+                    <label for="end_date" class="mr-2">End Date:</label>
+                    <input type="date" name="end_date" id="end_date" class="w-60 p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" value="{{ old('end_date') }}">
+                </div>
+                @error('acquisition_date')
+                    <span class="text-sm text-red-500">{{ $message }} <br></span>
+                @enderror
+
+                <input type="text" name="musician_name" id="musician_name" placeholder="Musician Name" class="w-150 p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl" value="{{ old('musician_name') }}">
+                @error('musician_name')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
+        
+                <textarea name="observations" id="observations" placeholder="Observations" class="w-200 p-2 my-3 border-2 border-teal-500 rounded-5 text-base md:text-lg lg:text-xl">{{ old('observations') }}</textarea>
+                @error('observations')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
+        
+                <div class="flex justify-center mt-4 pb-5">
+                    <a href="#" class="p-4 md:text-4xl bg-white text-teal-500 border-none text-base hover:bg-gray-300" id="saveLoan">
+                        <button type="button" class="btn">Go Back</button>
+                    </a>
+                </div>
+            </form>
+        </div>
+        
+        @endif
     </div>
     
     @elseif(session('activeTable') && session('activeTable') == 'revisions')
@@ -73,6 +115,7 @@
         <h1 class="text-center text-3xl md:text-4xl lg:text-5xl text-white">Revisions</h1>
     
         @if(isset($revisions))
+        <div id="revisionsSection">
             <table class="w-5/6 mt-5 bg-white mx-auto">
                 <thead class="bg-teal-500 text-white">
                     <tr>
@@ -100,9 +143,10 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
         @endif
         <div class="flex justify-center mt-4 pb-5">
-            <a href="#" class="p-4 md:text-4xl bg-white text-teal-500 border-none text-base hover:bg-gray-300">
+            <a href="#" class="p-4 md:text-4xl bg-white text-teal-500 border-none text-base hover:bg-gray-300" id="newRevisionButton">
                 <button type="button" class="btn">New Revision</button>
             </a>
         </div>
